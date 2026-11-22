@@ -17,6 +17,8 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import { validateSimulationBeforePublish } from './hooks/validateSimulationBeforePublish'
+import { validateSimulationHTMLPath } from '../../utilities/simulationHTMLPath'
 
 import {
   MetaDescriptionField,
@@ -98,6 +100,16 @@ export const Posts: CollectionConfig<'posts'> = {
               }),
               label: false,
               required: true,
+            },
+            {
+              name: 'simulationHtmlPath',
+              type: 'text',
+              label: 'Simulation HTML Path',
+              admin: {
+                description:
+                  'Enter the path of the HTML simulation file located inside the public/sims folder.',
+              },
+              validate: validateSimulationHTMLPath,
             },
           ],
           label: 'Content',
@@ -217,6 +229,7 @@ export const Posts: CollectionConfig<'posts'> = {
     slugField(),
   ],
   hooks: {
+    beforeChange: [validateSimulationBeforePublish],
     afterChange: [revalidatePost],
     afterRead: [populateAuthors],
     afterDelete: [revalidateDelete],

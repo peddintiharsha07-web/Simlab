@@ -37,6 +37,10 @@
 @source inline("border-warning");
 @source inline("bg-warning/30");
 
+@source "../../components/SimVerse/**/*.tsx";
+@source "../../Header/**/*.tsx";
+@source "../../providers/Theme/**/*.tsx";
+
 @theme {
   --breakpoint-sm: 40rem;
   --breakpoint-md: 48rem;
